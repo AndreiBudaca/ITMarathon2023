@@ -25,6 +25,7 @@ public class ClientThread extends Thread {
             in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             // Do logic
+            System.out.println(in.readLine());
             out.println("Bau");
             out.flush();
 
