@@ -42,7 +42,7 @@
 
 <VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biggapp.AppController">
   <children>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" onMouseMoved="#updateInviteList" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
             <Button fx:id="SendRequestBackButton" layoutX="149.0" layoutY="581.0" mnemonicParsing="false" onAction="#onSendRequestBackClick" text="Back">
                <font>
@@ -59,7 +59,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TextArea fx:id="InvitedPersonsTextArea" disable="true" layoutX="440.0" layoutY="79.0" prefHeight="106.0" prefWidth="383.0" promptText="Invited persons" />
+            <TextArea fx:id="InvitedPersonsTextArea" editable="false" layoutX="440.0" layoutY="79.0" prefHeight="106.0" prefWidth="383.0" promptText="Invited persons" />
             <Button fx:id="AddPersonButton" layoutX="838.0" layoutY="80.0" mnemonicParsing="false" onAction="#onAddPersonClick" prefHeight="33.0" prefWidth="113.0" text="Add person" />
             <Label layoutX="282.0" layoutY="224.0" text="Time Interval:">
                <font>
