@@ -72,7 +72,7 @@ public class AppController{
     @FXML
     private Button MyProfileButton;
     @FXML
-    protected void onHomeSearchBarUpdated(){
+    protected void onHomeSearchBarUpdated() throws IOException {
         //iterate user list at database level and return users that have
         List<String> users = List.of("Mircea Ion", "Costel Mihaita", "Andrei Budaca");
 
@@ -90,6 +90,14 @@ public class AppController{
                     validUsers.add(user);
                 }
             }
+        }else{
+            String lastSearches = new String(Files.readAllBytes(Paths.get("BiggApp/LastSearches.txt")));
+            if(!lastSearches.isBlank()){
+                List<String> results = new ArrayList<>(List.of(lastSearches.split("\n")));
+                results.remove("");
+                validUsers.addAll(results);
+            }
+
         }
 
         //create and display valid results
@@ -104,7 +112,6 @@ public class AppController{
                         try {
                             Files.write(Paths.get("BiggApp/LastSearches.txt"), ("\n" + result).getBytes(), StandardOpenOption.APPEND);
                         }catch (IOException e) {
-                            //exception handling left as an exercise for the reader
                         }
                         Main.changeScene("ProfilePage.fxml");
 
