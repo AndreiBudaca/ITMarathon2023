@@ -54,7 +54,7 @@
                   <Font size="30.0" />
                </font>
             </Button>
-            <Label layoutX="271.0" layoutY="79.0" text="Invited Persons:">
+            <Label layoutX="267.0" layoutY="79.0" text="*Invited Persons:">
                <font>
                   <Font size="20.0" />
                </font>
@@ -66,7 +66,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Label layoutX="330.0" layoutY="291.0" text="Location:">
+            <Label layoutX="330.0" layoutY="291.0" text="*Location:">
                <font>
                   <Font size="20.0" />
                </font>
@@ -78,6 +78,11 @@
             </Label>
             <TextField fx:id="LocationTextField" layoutX="440.0" layoutY="287.0" prefHeight="33.0" prefWidth="198.0" promptText="E.g. Park, 2nd Floor" />
             <TextArea fx:id="CommentTextArea" layoutX="440.0" layoutY="380.0" prefHeight="168.0" prefWidth="575.0" promptText="E.g. Bring cookies" />
+            <Label fx:id="MissingReqFieldLabel" alignment="CENTER" layoutX="482.0" layoutY="614.0" prefHeight="47.0" prefWidth="316.0" text="Missing required fields" textFill="#e80202" visible="false">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
          </children>
     </AnchorPane>
   </children>
