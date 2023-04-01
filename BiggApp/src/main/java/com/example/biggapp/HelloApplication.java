@@ -23,10 +23,14 @@ public class HelloApplication extends Application {
         APICaller caller = new APICaller();
 
         try {
-            caller.start();
+            System.out.println("Active session: " + caller.checkActiveSessionStatus("test"));
+            System.out.println("Login succes: " + caller.login("test", "test11"));
+            System.out.println("Active session: " + caller.checkActiveSessionStatus("test"));
+            System.out.println("Logout succes: " + caller.logout("test"));
+            System.out.println("Active session: " + caller.checkActiveSessionStatus("test"));
         }
         catch (Exception e){
-            System.out.println("Error at caller");
+            System.out.println("Error!");
         }
     }
 }
