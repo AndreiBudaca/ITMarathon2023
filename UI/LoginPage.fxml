@@ -59,6 +59,7 @@
                   <Font size="18.0" />
                </font>
             </PasswordField>
+            <Label fx:id="LoginErrorLabel" layoutX="536.0" layoutY="408.0" prefHeight="33.0" prefWidth="209.0" text="Invalid Username or Password Try Again" textAlignment="CENTER" textFill="#830000" visible="false" wrapText="true" />
          </children>
     </AnchorPane>
   </children>
