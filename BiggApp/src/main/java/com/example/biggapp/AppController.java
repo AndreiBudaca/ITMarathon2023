@@ -54,6 +54,16 @@ public class AppController{
     private int userID = 0;
     private String username;
 
+    public AppController() {
+        try {
+            socket = new ClientSocket();
+        }
+        catch (Exception e){
+            System.err.println("Error opening server socket!\n" + e.getLocalizedMessage());
+            System.exit(-1);
+        }
+    }
+
     @FXML
     protected void onLoginClick() throws IOException {
         username = LoginUsernameTextField.getText();
