@@ -8,6 +8,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.*;
 import org.apache.http.ssl.*;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import javax.net.ssl.*;
@@ -17,7 +18,20 @@ import java.security.cert.X509Certificate;
 import java.util.Objects;
 
 public class APICaller {
-    public CloseableHttpClient getHttpClient() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+    private final String loginURL = "https://uxhackathon.ro/api/login.php";
+    private final String activeSessionURL = "https://uxhackathon.ro/api/activeSession.php";
+    private final String logoutURL = "https://uxhackathon.ro/api/logout.php";
+    private CloseableHttpClient httpClient = null;
+
+    public APICaller(){
+        try {
+            httpClient = getHttpClient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private CloseableHttpClient getHttpClient() throws NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
         SSLContext sslContext = SSLContexts.custom().loadTrustMaterial(new TrustStrategy() {
             @Override
             public boolean isTrusted(X509Certificate[] chain, String authType) {
@@ -30,52 +44,73 @@ public class APICaller {
         return HttpClients.custom().setSSLSocketFactory(sslConnectionSocketFactory).build();
     }
 
-    public void start() throws IOException {
-        final String loginURL = "https://uxhackathon.ro/api/login.php";
-        final String activeSessionURL = "https://uxhackathon.ro/api/activeSession.php";
-        final String logoutURL = "https://uxhackathon.ro/api/logout.php";
+    private JSONObject callAPI(String URL, StringEntity body) throws RuntimeException{
 
-        StringEntity loginRequestBody;
-        StringEntity activeSessionAndLogoutRequestBody;
+        HttpPost activeSessionRequest = new HttpPost(URL);
+        activeSessionRequest.addHeader("content-type", "application/x-www-form-urlencoded");
+        activeSessionRequest.setEntity(body);
+
         try {
-            loginRequestBody = new StringEntity("{\"username\":\"test\",\"password\":\"test\"}");
-            activeSessionAndLogoutRequestBody = new StringEntity("{\"username\":\"test\"}");
-        } catch (UnsupportedEncodingException e) {
+            HttpResponse response = httpClient.execute(activeSessionRequest);
+            String responseJSON = EntityUtils.toString(response.getEntity());
+            JSONObject responseJSONObj = new JSONObject(responseJSON);
+
+            //System.out.println("ActiveSession response: \n" + responseJSONObj + "\n");
+
+            return responseJSONObj;
+        }
+        catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
 
+    public boolean checkActiveSessionStatus(String username) throws RuntimeException{
+        if (httpClient != null) {
+            try {
+                StringEntity requestBody = new StringEntity("{\"username\":\"" + username + "\"}");
+                JSONObject obj = callAPI(activeSessionURL, requestBody);
 
-        CloseableHttpClient httpClient = null;
-        try {
-            httpClient = getHttpClient();
-        } catch (Exception e) {
-            e.printStackTrace();
+                return obj.getInt("loginSession") == 1;
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
         }
+        else{
+            throw new RuntimeException("HTTP Client was not initialised!");
+        }
+    }
 
-        HttpPost loginRequest = new HttpPost(loginURL);
-        loginRequest.addHeader("content-type", "application/x-www-form-urlencoded");
-        loginRequest.setEntity(loginRequestBody);
-        HttpResponse loginResponse = Objects.requireNonNull(httpClient).execute(loginRequest);
-        String loginResponseJSON = EntityUtils.toString(loginResponse.getEntity());
-        JSONObject loginResponseJSONObj = new JSONObject(loginResponseJSON);
-        System.out.println("Login response: \n" + loginResponseJSONObj + "\n");
+    public boolean login(String username, String password) throws RuntimeException{
+        if (httpClient != null) {
+            try {
+                StringEntity requestBody = new StringEntity("{\"username\":\"" + username + "\",\"password\":\"" + password + "\"}");;
+                JSONObject obj = callAPI(loginURL, requestBody);
 
+                return obj.getInt("loginSession") == 1;
+            }catch (JSONException e){
+                return false;
+            } catch (UnsupportedEncodingException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        else{
+            throw new RuntimeException("HTTP Client was not initialised!");
+        }
+    }
 
-        HttpPost activeSessionRequest = new HttpPost(activeSessionURL);
-        activeSessionRequest.addHeader("content-type", "application/x-www-form-urlencoded");
-        activeSessionRequest.setEntity(activeSessionAndLogoutRequestBody);
-        HttpResponse activeSessionResponse = httpClient.execute(activeSessionRequest);
-        String activeSessionResponseJSON = EntityUtils.toString(activeSessionResponse.getEntity());
-        JSONObject activeSessionResponseJSONObj = new JSONObject(activeSessionResponseJSON);
-        System.out.println("ActiveSession response: \n" + activeSessionResponseJSONObj + "\n");
+    public boolean logout(String username){
+        if (httpClient != null) {
+            try {
+                StringEntity requestBody = new StringEntity("{\"username\":\"" + username + "\"}");
+                JSONObject obj = callAPI(logoutURL, requestBody);
 
-
-        HttpPost logoutRequest = new HttpPost(logoutURL);
-        logoutRequest.addHeader("content-type", "application/x-www-form-urlencoded");
-        logoutRequest.setEntity(activeSessionAndLogoutRequestBody);
-        HttpResponse logoutResponse = httpClient.execute(logoutRequest);
-        String logoutResponseJSON = EntityUtils.toString(logoutResponse.getEntity());
-        JSONObject logoutResponseJSONObj = new JSONObject(logoutResponseJSON);
-        System.out.println("Logout response: \n" + logoutResponseJSONObj + "\n");
+                return obj.getInt("loginSession") == 0;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
     }
 }
