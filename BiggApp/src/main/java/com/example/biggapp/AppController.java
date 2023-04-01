@@ -49,15 +49,35 @@ public class AppController{
     @FXML
     private Label LoginErrorLabel;
 
+    private final APICaller apiCaller = new APICaller();
+    private ClientSocket socket = null;
+    private int userID = 0;
+    private String username;
+
     @FXML
     protected void onLoginClick() throws IOException {
-        String username = LoginUsernameTextField.getText();
+        username = LoginUsernameTextField.getText();
         String password = LoginPasswordTextField.getText();
 
         //TODO send request with user and pass
+        FileWriter writer = new FileWriter("credentials.txt");
+
+        writer.write(username + " " + password);
+        writer.flush();
+        writer.close();
+
+        boolean succes = false;
+
+        try{
+            succes = apiCaller.login(username, password);
+        }
+        catch (Exception ignore){
+
+        }
 
         //if successful, redirect to homepage:
-        if(true) {
+        if(succes) {
+            userID = socket.getId(username);
             Stage stage = (Stage) LoginButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomePage.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
@@ -67,6 +87,7 @@ public class AppController{
             LoginErrorLabel.setVisible(true);
         }
     }
+
 
     //home page
     @FXML
@@ -147,13 +168,16 @@ public class AppController{
     }
     @FXML
     protected void onLogoutClick() throws IOException {
-        //TODO send logout request
-
         //if successful, redirect to homepage:
-        if(true) {
-            Main.changeScene("LoginPage.fxml");
+        String creds = "";
+        try {
+            creds = Files.readString(Paths.get("credentials.txt"), StandardCharsets.US_ASCII);
+        }
+        catch (Exception ignore){
         }
 
+        if (apiCaller.logout(creds.split(" ")[0]))
+            Main.changeScene("LoginPage.fxml");
     }
     @FXML
     protected void onMyProfileClick() throws IOException {
