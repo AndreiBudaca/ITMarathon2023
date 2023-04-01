@@ -34,51 +34,30 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biggapp.AppController">
+<VBox prefHeight="150.0" prefWidth="450.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biggapp.AppController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Button fx:id="SendRequestBackButton" layoutX="149.0" layoutY="581.0" mnemonicParsing="false" onAction="#onSendRequestBackClick" text="Back">
+      <children>
+        <Label alignment="CENTER" layoutX="12.0" layoutY="14.0" prefHeight="57.0" prefWidth="427.0" style="&#10;" text="If you go back, the data will be lost. Continue?" textAlignment="CENTER" wrapText="true">
+          <font>
+            <Font size="20.0" />
+          </font>
+        </Label>
+            <Button fx:id="SendRequestBackCancelButton" layoutX="24.0" layoutY="82.0" mnemonicParsing="false" onAction="#onSendRequestBackCancelClick" text="Cancel">
                <font>
-                  <Font size="30.0" />
+                  <Font size="25.0" />
                </font>
             </Button>
-            <Button fx:id="SendRequestSendButton" layoutX="1015.0" layoutY="581.0" mnemonicParsing="false" onAction="#onSendRequestSendClick" text="Send">
+            <Button fx:id="SendRequestBackContinueButton" layoutX="279.0" layoutY="82.0" mnemonicParsing="false" onAction="#onSendRequestBackContinueClick" text="Continue">
                <font>
-                  <Font size="30.0" />
+                  <Font size="25.0" />
                </font>
             </Button>
-            <Label layoutX="271.0" layoutY="79.0" text="Invited Persons:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <TextArea fx:id="InvitedPersonsTextArea" disable="true" layoutX="440.0" layoutY="79.0" prefHeight="106.0" prefWidth="383.0" promptText="Invited persons" />
-            <Button fx:id="AddPersonButton" layoutX="838.0" layoutY="80.0" mnemonicParsing="false" onAction="#onAddPersonClick" prefHeight="33.0" prefWidth="113.0" text="Add person" />
-            <Label layoutX="282.0" layoutY="224.0" text="Time Interval:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="330.0" layoutY="291.0" text="Location:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <Label layoutX="317.0" layoutY="387.0" text="Comment:">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Label>
-            <TextField fx:id="LocationTextField" layoutX="440.0" layoutY="287.0" prefHeight="33.0" prefWidth="198.0" promptText="E.g. Park, 2nd Floor" />
-            <TextArea fx:id="CommentTextArea" layoutX="440.0" layoutY="380.0" prefHeight="168.0" prefWidth="575.0" promptText="E.g. Bring cookies" />
-         </children>
+      </children>
     </AnchorPane>
   </children>
 </VBox>
