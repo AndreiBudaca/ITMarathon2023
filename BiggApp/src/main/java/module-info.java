@@ -4,6 +4,7 @@ module com.example.biggapp {
     requires httpcore;
     requires org.json;
     requires httpclient;
+    requires com.google.gson;
 
 
     opens com.example.biggapp to javafx.fxml;

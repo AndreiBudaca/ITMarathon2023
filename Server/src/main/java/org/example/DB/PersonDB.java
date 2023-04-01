@@ -1,4 +1,4 @@
-package org.example.Model;
+package org.example.DB;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -7,16 +7,13 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.example.Model.Person;
+import org.example.Parser.JSONParser;
 
 public class PersonDB {
     private final String fileName = "person.json";
-    private final List<Person> personList = new ArrayList<>(0);
+    private List<Person> personList = new ArrayList<>(0);
     private int nextId = 0;
-    private final Gson gson = new Gson();
 
     public Integer getPersonId(String username, String password){
 
@@ -51,7 +48,7 @@ public class PersonDB {
     public void save(){
         try {
             FileWriter f = new FileWriter(fileName);
-            f.write(gson.toJson(personList));
+            f.write(JSONParser.writeObject(personList));
             f.flush();
         }
         catch (Exception e){
@@ -62,22 +59,7 @@ public class PersonDB {
     public void load(){
         try{
             String content = Files.readString(Paths.get(fileName), StandardCharsets.US_ASCII);
-            JSONObject responseJSONObj = new JSONObject("{\"data\": " + content + "}");
-            JSONArray persons = responseJSONObj.getJSONArray("data");
-
-            for (int i = 0; i < persons.length(); ++i){
-                personList.add(new Person(
-                        persons.getJSONObject(i).getString("firstName"),
-                        persons.getJSONObject(i).getString("lastName"),
-                        persons.getJSONObject(i).getString("department"),
-                        persons.getJSONObject(i).getString("officeName"),
-                        persons.getJSONObject(i).getString("teamName"),
-                        persons.getJSONObject(i).getInt("floorNumber"),
-                        persons.getJSONObject(i).getString("username"),
-                        persons.getJSONObject(i).getString("password")
-
-                ));
-            }
+            personList = JSONParser.readPersons("{\"data\": " + content + "}");
         } catch (Exception e) {
             System.out.println("Failed to read DB!\n" + e.getLocalizedMessage());
         }
