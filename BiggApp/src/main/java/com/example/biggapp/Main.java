@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import com.example.biggapp.ServerCommunication.*;
+
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
@@ -18,6 +20,13 @@ public class Main extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        //launch();
+        try {
+            ClientSocket client = new ClientSocket();
+            client.test();
+        }
+        catch (Exception e){
+            System.exit(-1);
+        }
     }
 }

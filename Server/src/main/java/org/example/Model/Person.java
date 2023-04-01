@@ -2,26 +2,33 @@ package org.example.Model;
 
 import java.io.Serializable;
 
-class Person implements Serializable {
-    private final int id;
+public class Person implements Serializable {
+    private Integer id;
     private final String firstName;
     private final String lastName;
     private final String department;
     private final String officeName;
     private final String teamName;
-    private final int floorNumber;
+    private final Integer floorNumber;
+    private final String username;
+    private final String password;
 
-    public Person(int id, String firstName, String lastName, String department, String officeName, String teamName, int floorNumber) {
-        this.id = id;
+    public Person(String firstName, String lastName, String department, String officeName, String teamName, int floorNumber, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
         this.officeName = officeName;
         this.teamName = teamName;
         this.floorNumber = floorNumber;
+        this.username = username;
+        this.password = password;
     }
 
-    public int getId() {
+    protected void setId(Integer id){
+        this.id = id;
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -45,7 +52,15 @@ class Person implements Serializable {
         return teamName;
     }
 
-    public int getFloorNumber() {
+    public Integer getFloorNumber() {
         return floorNumber;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword(){
+        return password;
     }
 }
