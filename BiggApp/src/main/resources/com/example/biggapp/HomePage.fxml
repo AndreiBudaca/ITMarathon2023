@@ -32,34 +32,15 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biggapp.HelloController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-            <Label layoutX="447.0" layoutY="104.0" text="Break Inviter" textAlignment="CENTER">
-               <font>
-                  <Font size="60.0" />
-               </font>
-            </Label>
-            <Button fx:id="LoginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="613.0" layoutY="500.0" mnemonicParsing="false" onAction="#onLoginClick" scaleX="3.0" scaleY="3.0" scaleZ="3.0" style="-fx-background-color: GREEN;" text="Login" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="196.0" AnchorPane.rightAnchor="613.0" />
-            <TextField fx:id="LoginUsernameTextField" layoutX="522.0" layoutY="248.0" promptText="Username" AnchorPane.rightAnchor="522.0">
-               <font>
-                  <Font size="18.0" />
-               </font></TextField>
-            <PasswordField fx:id="LoginPasswordTextField" layoutX="522.0" layoutY="327.0" promptText="Password">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </PasswordField>
-            <Label fx:id="LoginErrorLabel" layoutX="536.0" layoutY="408.0" prefHeight="33.0" prefWidth="209.0" text="Invalid Username or Password Try Again" textAlignment="CENTER" textFill="#830000" visible="false" wrapText="true" />
+            <TextField layoutX="555.0" layoutY="59.0" />
          </children>
     </AnchorPane>
   </children>
