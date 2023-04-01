@@ -8,5 +8,6 @@ module com.example.biggapp {
 
 
     opens com.example.biggapp to javafx.fxml;
+    opens com.example.biggapp.Model to com.google.gson;
     exports com.example.biggapp;
 }

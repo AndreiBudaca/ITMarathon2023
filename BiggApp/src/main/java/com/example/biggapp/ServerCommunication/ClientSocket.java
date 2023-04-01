@@ -1,5 +1,8 @@
 package com.example.biggapp.ServerCommunication;
 
+import com.example.biggapp.Model.Person;
+import com.example.biggapp.Parser.JSONParser;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.Socket;
@@ -27,7 +30,7 @@ public class ClientSocket {
     }
 
     public void test(){
-        sendMessage("Hello server", "");
+        sendMessage(" ", "");
 
         try {
             System.out.println(readMessage());

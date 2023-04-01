@@ -15,10 +15,21 @@ public class PersonDB {
     private List<Person> personList = new ArrayList<>(0);
     private int nextId = 0;
 
-    public Integer getPersonId(String username, String password){
+    public Integer getPersonId(String username){
 
         for (Person person: personList){
-            if (person.getUsername().equals(username) && person.getPassword().equals(password)){
+            if (person.getUsername().equals(username)){
+                return person.getId();
+            }
+        }
+
+        return -1;
+    }
+
+    public Integer getPersonId(String firstName, String lastName){
+
+        for (Person person: personList){
+            if (person.getFirstName().equals(firstName) && person.getLastName().equals(lastName)){
                 return person.getId();
             }
         }
@@ -27,12 +38,8 @@ public class PersonDB {
     }
 
     public void addPerson(Person person){
-        person.setId(nextId);
-        ++nextId;
-        System.out.println("Saving...");
         personList.add(person);
         save();
-        System.out.println("Saved on disk");
     }
 
     public void deletePerson(int id){
@@ -44,6 +51,23 @@ public class PersonDB {
             }
         }
     }
+
+    public void modifyPerson(int personId, Person newPerson){
+        newPerson.setId(personId);
+        deletePerson(personId);
+        addPerson(newPerson);
+    }
+
+    public Person getPerson(int id){
+        for (Person person: personList){
+            if (person.getId() == id)
+                return person;
+        }
+
+        return null;
+    }
+
+    public List<Person> getPersonList() { return personList; }
 
     public void save(){
         try {

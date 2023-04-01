@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONParser {
-    private static Gson gson;
+    private static final Gson gson = new Gson();
 
     public static List<Person> readPersons(String rawJSON){
 
@@ -27,9 +27,7 @@ public class JSONParser {
                     persons.getJSONObject(i).getString("officeName"),
                     persons.getJSONObject(i).getString("teamName"),
                     persons.getJSONObject(i).getInt("floorNumber"),
-                    persons.getJSONObject(i).getString("username"),
-                    persons.getJSONObject(i).getString("password")
-
+                    persons.getJSONObject(i).getString("username")
             ));
         }
 
@@ -46,8 +44,7 @@ public class JSONParser {
                responseJSONObj.getString("officeName"),
                responseJSONObj.getString("teamName"),
                responseJSONObj.getInt("floorNumber"),
-               responseJSONObj.getString("username"),
-               responseJSONObj.getString("password")
+               responseJSONObj.getString("username")
        );
 
 
