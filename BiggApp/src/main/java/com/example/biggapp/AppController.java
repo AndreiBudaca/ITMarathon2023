@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HelloController {
+public class AppController {
     @FXML
     private Button LoginButton;
     @FXML
@@ -30,7 +30,7 @@ public class HelloController {
         //if successful, redirect to homepage:
         if(true) {
             Stage stage = (Stage) LoginButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("HomePage.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomePage.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
             stage.setScene(scene);
         }
@@ -38,4 +38,5 @@ public class HelloController {
             LoginErrorLabel.setVisible(true);
         }
     }
+
 }
