@@ -84,9 +84,9 @@ public class RequestDB {
     public void load(){
         try{
             String content = Files.readString(Paths.get(fileName), StandardCharsets.US_ASCII);
-            requestList = JSONParser.readRequests("{\"data\": " + content + "}");
+            requestList = JSONParser.readRequests(content);
         } catch (Exception e) {
-            System.out.println("Failed to read DB!\n" + e.getLocalizedMessage());
+            System.out.println("Failed to read DB!\n" + e.getLocalizedMessage() + "\n");
         }
     }
 }

@@ -11,9 +11,9 @@ public class Person implements Serializable {
     private final String teamName;
     private final Integer floorNumber;
     private final String username;
-    private final String password;
 
-    public Person(String firstName, String lastName, String department, String officeName, String teamName, int floorNumber, String username, String password) {
+    public Person(int id, String firstName, String lastName, String department, String officeName, String teamName, int floorNumber, String username) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.department = department;
@@ -21,7 +21,6 @@ public class Person implements Serializable {
         this.teamName = teamName;
         this.floorNumber = floorNumber;
         this.username = username;
-        this.password = password;
     }
 
     public void setId(Integer id){
@@ -58,9 +57,5 @@ public class Person implements Serializable {
 
     public String getUsername() {
         return username;
-    }
-
-    public String getPassword(){
-        return password;
     }
 }

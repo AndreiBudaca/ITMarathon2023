@@ -22,8 +22,9 @@ public class ClientSocket {
 
     private void sendMessage(String header, String body){
         out.print(header);
-        out.print("\r\n");
+        out.print("\n");
         out.print(body);
+        out.print("\n");
         out.flush();
     }
 
@@ -120,14 +121,7 @@ public class ClientSocket {
 
 
     public void test(){
-        sendMessage(" ", "");
-
-        try {
-            System.out.println(readMessage());
-        }
-        catch (Exception e){
-            System.out.println("Error reading from server");
-        }
+        System.out.println(getId("asd"));
 
     }
 

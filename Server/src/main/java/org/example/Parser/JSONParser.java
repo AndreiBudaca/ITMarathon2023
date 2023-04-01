@@ -14,22 +14,20 @@ public class JSONParser {
     private static final Gson gson = new Gson();
 
     public static List<Person> readPersons(String rawJSON){
-
-        JSONObject responseJSONObj = new JSONObject(rawJSON);
-        JSONArray persons = responseJSONObj.getJSONArray("{\"data\": " + rawJSON + "}");
+        JSONObject responseJSONObj = new JSONObject("{\"data\":" + rawJSON + "}");
+        JSONArray persons = responseJSONObj.getJSONArray("data");
         List<Person> personList = new ArrayList<>(0);
 
         for (int i = 0; i < persons.length(); ++i){
             personList.add(new Person(
+                    persons.getJSONObject(i).getInt("id"),
                     persons.getJSONObject(i).getString("firstName"),
                     persons.getJSONObject(i).getString("lastName"),
                     persons.getJSONObject(i).getString("department"),
                     persons.getJSONObject(i).getString("officeName"),
                     persons.getJSONObject(i).getString("teamName"),
                     persons.getJSONObject(i).getInt("floorNumber"),
-                    persons.getJSONObject(i).getString("username"),
-                    persons.getJSONObject(i).getString("password")
-
+                    persons.getJSONObject(i).getString("username")
             ));
         }
 
@@ -40,22 +38,20 @@ public class JSONParser {
         JSONObject responseJSONObj = new JSONObject(rawJSON);
 
         return new Person(
+                responseJSONObj.getInt("id"),
                 responseJSONObj.getString("firstName"),
                 responseJSONObj.getString("lastName"),
                 responseJSONObj.getString("department"),
                 responseJSONObj.getString("officeName"),
                 responseJSONObj.getString("teamName"),
                 responseJSONObj.getInt("floorNumber"),
-                responseJSONObj.getString("username"),
-                responseJSONObj.getString("password")
+                responseJSONObj.getString("username")
         );
-
-
     }
 
     public static List<Request> readRequests(String rawJSON){
 
-        JSONObject responseJSONObj = new JSONObject("{\"data\": " + rawJSON + "}");
+        JSONObject responseJSONObj = new JSONObject("{\"data\":" + rawJSON + "}");
         JSONArray requests = responseJSONObj.getJSONArray("data");
         List<Request> requestList = new ArrayList<>(0);
 

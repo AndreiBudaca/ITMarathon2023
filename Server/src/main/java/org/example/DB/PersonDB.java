@@ -83,9 +83,9 @@ public class PersonDB {
     public void load(){
         try{
             String content = Files.readString(Paths.get(fileName), StandardCharsets.US_ASCII);
-            personList = JSONParser.readPersons("{\"data\": " + content + "}");
+            personList = JSONParser.readPersons(content);
         } catch (Exception e) {
-            System.out.println("Failed to read DB!\n" + e.getLocalizedMessage());
+            System.out.println("Failed to read DB!\n" + e.getLocalizedMessage() + "\n");
         }
     }
 }
