@@ -3,6 +3,7 @@ package com.example.biggapp;
 import com.example.biggapp.Model.Request;
 import com.example.biggapp.Model.RequestPerson;
 import com.example.biggapp.Request.APICaller;
+import com.example.biggapp.ServerCommunication.ClientSocket;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,6 +20,15 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
