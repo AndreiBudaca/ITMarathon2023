@@ -19,10 +19,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -100,7 +101,13 @@ public class AppController{
                 @Override
                 public void handle(ActionEvent actionEvent) {
                     try {
+                        try {
+                            Files.write(Paths.get("BiggApp/LastSearches.txt"), ("\n" + result).getBytes(), StandardOpenOption.APPEND);
+                        }catch (IOException e) {
+                            //exception handling left as an exercise for the reader
+                        }
                         Main.changeScene("ProfilePage.fxml");
+
                     } catch (IOException e) {
                         throw new RuntimeException(e);
                     }
