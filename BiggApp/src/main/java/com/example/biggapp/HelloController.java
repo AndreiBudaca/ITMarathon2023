@@ -1,3 +1,5 @@
+package com.example.biggapp;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
