@@ -1,6 +1,10 @@
 package com.example.biggapp;
 
+import com.example.biggapp.Model.Request;
+import com.example.biggapp.Model.RequestPerson;
 import com.example.biggapp.Request.APICaller;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -91,14 +95,28 @@ public class AppController{
         for(String result: validUsers){
             Button resultLabel = new Button();
             resultLabel.setText(result);
+
+            resultLabel.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    try {
+                        Main.changeScene("ProfilePage.fxml");
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
             SearchResultsVBox.getChildren().add(resultLabel);
         }
 
     }
+    static List<Request> requests = new ArrayList<>();
     @FXML
-    protected void onMyRequestsClick(){
-
+    protected void onMyRequestsClick() throws IOException {
+        Main.changeScene("MyRequestsPage.fxml");
     }
+
     @FXML
     protected void onSendRequestClick() throws IOException {
         Main.changeScene("SendRequestPage.fxml");
@@ -158,7 +176,6 @@ public class AppController{
         if(!users.isEmpty() && !location.isBlank()) {
             //send request
             //...
-
 
             Main.changeScene("HomePage.fxml");
         }
@@ -323,4 +340,72 @@ public class AppController{
         profileToTextField.setDisable(true);
     }
 
+    //my requests page
+    @FXML
+    private Button MyRequestsBackButton;
+    @FXML
+    private VBox requestContainer;
+
+    @FXML
+    protected void onMyRequestsBackClick() throws IOException {
+        Main.changeScene("HomePage.fxml");
+    }
+
+    @FXML
+    protected void updateMyRequests(){
+        requestContainer.getChildren().clear();
+
+        //TODO: get requests from server
+        RequestPerson person1 = new RequestPerson(1);
+        RequestPerson person2 = new RequestPerson(2);
+        RequestPerson person3 = new RequestPerson(3);
+        Request req1 = new Request(1, List.of(person1, person2, person3), "Parcare", "Aduceti seminte");
+
+        RequestPerson person4 = new RequestPerson(4);
+        RequestPerson person5 = new RequestPerson(5);
+        Request req2 = new Request(2, List.of(person1, person4, person5), "Etajul 3", "Se pune muzica");
+
+        List<Request> requests = List.of(req1, req2);
+
+        for(Request req: requests){
+            HBox entry = new HBox();
+            entry.setSpacing(30);
+
+            List<String> receiverNames = new ArrayList<>();
+            for(RequestPerson receiver: req.getReceivers())
+                receiverNames.add(String.valueOf(receiver.getId()));
+
+
+            Label intiator = new Label("Intiator: " + req.getSenderId());
+            Label receivers = new Label("Invited: " + receiverNames);
+            Label place = new Label("Place: " + req.getLocation());
+            Label comment = new Label("Comment: " + req.getComment());
+            Button accept = new Button("Accept");
+            Button decline = new Button("Decline");
+
+            accept.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    //send request saying "accept"
+                }
+            });
+
+            decline.setOnAction(new EventHandler<ActionEvent>() {
+                @Override
+                public void handle(ActionEvent actionEvent) {
+                    //send request saying "decline"
+                }
+            });
+
+            entry.getChildren().add(intiator);
+            entry.getChildren().add(receivers);
+            entry.getChildren().add(place);
+            entry.getChildren().add(comment);
+            entry.getChildren().add(accept);
+            entry.getChildren().add(decline);
+
+            requestContainer.getChildren().add(entry);
+
+        }
+    }
 }
