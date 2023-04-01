@@ -50,19 +50,8 @@ public class AppController{
     private Label LoginErrorLabel;
 
     private final APICaller apiCaller = new APICaller();
-    private ClientSocket socket = null;
     private int userID = 0;
     private String username;
-
-    public AppController() {
-        try {
-            socket = new ClientSocket();
-        }
-        catch (Exception e){
-            System.err.println("Error opening server socket!\n" + e.getLocalizedMessage());
-            System.exit(-1);
-        }
-    }
 
     @FXML
     protected void onLoginClick() throws IOException {
@@ -87,7 +76,7 @@ public class AppController{
 
         //if successful, redirect to homepage:
         if(succes) {
-            userID = socket.getId(username);
+            userID = new ClientSocket().getId(username);
             Stage stage = (Stage) LoginButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomePage.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
