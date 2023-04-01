@@ -132,13 +132,17 @@ public class AppController{
                 }
             }
         }else{
-            String lastSearches = new String(Files.readAllBytes(Paths.get("BiggApp/LastSearches.txt")));
-            if(!lastSearches.isBlank()){
-                List<String> results = new ArrayList<>(List.of(lastSearches.split("\n")));
-                results.remove("");
-                validUsers.addAll(results);
-            }
+            try {
+                String lastSearches = new String(Files.readAllBytes(Paths.get("LastSearches.txt")));
 
+                if(!lastSearches.isBlank()){
+                    List<String> results = new ArrayList<>(List.of(lastSearches.split("\n")));
+                    results.remove("");
+                    validUsers.addAll(results);
+                }
+            }catch (Exception ignore){
+
+            }
         }
 
         //create and display valid results
@@ -226,20 +230,47 @@ public class AppController{
     @FXML
     protected void onSendRequestSendClick() throws IOException {
         //get data and send request
-        List<String> users = List.of(InvitedPersonsTextArea.getText().split(", "));
+        List<String> users;
+
+        if (!InvitedPersonsTextArea.getText().isEmpty()) {
+
+            users = List.of(InvitedPersonsTextArea.getText().split(", "));
+        }
+        else
+            users = new ArrayList<>(0);
+
         String location = LocationTextField.getText();
         String comment = CommentTextArea.getText();
 
         //if all fields are good, send request
         if(!users.isEmpty() && !location.isBlank()) {
-            //send request
-            //...
+            System.out.println("Test");
+            // Get id's
+            List<RequestPerson> receivers = new ArrayList<RequestPerson>(0);
+            for (String fullName: users){
+                // Get user id
+                int id = new ClientSocket().getPersonID(fullName.split(" ")[0], fullName.split(" ")[1]);
+                receivers.add(new RequestPerson(
+                        id,
+                        0
+                ));
+            }
+
+            Request req = new Request(
+                    userID,
+                    receivers,
+                    location,
+                    comment
+            );
+
+            new ClientSocket().putReqest(req);
 
             Main.changeScene("HomePage.fxml");
         }
         else{
             MissingReqFieldLabel.setVisible(true);
         }
+
     }
 
     @FXML
@@ -333,9 +364,9 @@ public class AppController{
             ImageView star = new ImageView();
             star.setFitHeight(32);
             star.setFitWidth(32);
-            FileInputStream inputstream = new FileInputStream("/home/danu/Documents/ITMarathon/BiggApp/src/main/resources/Images/FullStar.png");
-            Image image = new Image(inputstream);
-            star.setImage(image);
+            //FileInputStream inputstream = new FileInputStream("/home/danu/Documents/ITMarathon/BiggApp/src/main/resources/Images/FullStar.png");
+            //Image image = new Image(inputstream);
+            //star.setImage(image);
 
             newEntry.getChildren().add(name);
             newEntry.getChildren().add(selectUser);

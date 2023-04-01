@@ -33,32 +33,6 @@ public class ClientThread extends Thread {
         }catch (Exception ignore){
         }
 
-        /*
-        personDatabase.addPerson(new Person(
-                "asd",
-                "asd",
-                "asd",
-                "asd",
-                "asd",
-                0,
-                "asd"
-        ));
-
-        List<RequestPerson> test = new ArrayList<RequestPerson>(0);
-        test.add(new RequestPerson(
-                3,
-                0
-        ));
-
-        requestDatabase.addRequest(new Request(
-                1,
-                test,
-                "test",
-                "test"
-
-        ));
-        */
-
         System.out.println("Socket created!");
 
     }
@@ -132,10 +106,6 @@ public class ClientThread extends Thread {
             System.out.println("\t" + messageHeader);
             String messageBody = in.readLine();
             System.out.println("\t" + messageBody);
-
-
-
-
 
             // Get request
             if (messageHeader.split(" ")[0].equals("GET")){
