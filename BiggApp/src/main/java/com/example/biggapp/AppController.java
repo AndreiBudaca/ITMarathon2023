@@ -1,5 +1,6 @@
 package com.example.biggapp;
 
+import com.example.biggapp.Request.APICaller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -92,8 +93,11 @@ public class AppController {
 
     }
     @FXML
-    protected void onSendRequestClick(){
-
+    protected void onSendRequestClick() throws IOException {
+        Stage stage = (Stage) LogoutButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SendRequestPage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        stage.setScene(scene);
     }
     @FXML
     protected void onLogoutClick() throws IOException {
@@ -112,5 +116,7 @@ public class AppController {
     protected void onMyProfileClick(){
 
     }
+
+    //send request page
 
 }
