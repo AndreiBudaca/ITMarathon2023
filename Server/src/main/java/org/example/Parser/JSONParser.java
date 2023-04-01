@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JSONParser {
-    private static Gson gson;
+    private static final Gson gson = new Gson();
 
     public static List<Person> readPersons(String rawJSON){
 

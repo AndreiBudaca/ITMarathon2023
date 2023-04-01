@@ -8,7 +8,6 @@ public class Request implements Serializable {
     private final Integer senderId;
     private final List<RequestPerson> receivers;
     private final String location;
-
     private final String comment;
 
     public Request(Integer senderId, List<RequestPerson> receivers, String location, String comment) {
