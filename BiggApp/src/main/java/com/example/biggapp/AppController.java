@@ -114,8 +114,8 @@ public class AppController{
 
     }
     @FXML
-    protected void onMyProfileClick(){
-
+    protected void onMyProfileClick() throws IOException {
+        Main.changeScene("ProfilePage.fxml");
     }
 
     //send request page
@@ -272,6 +272,55 @@ public class AppController{
 
 
         }
+    }
+
+    //Profile page
+    @FXML
+    private Button ProfileBackButton;
+    @FXML
+    private Button SaveProfileButton;
+    @FXML
+    private Button UpdateProfileButton;
+    @FXML
+    private TextField profileNameTextField;
+    @FXML
+    private TextField profileDepartmentTextField;
+    @FXML
+    private TextField profileOfficeTextField;
+    @FXML
+    private TextField profileTeamTextField;
+    @FXML
+    private TextField profileFloorTextField;
+    @FXML
+    private TextField profileFromTextField;
+    @FXML
+    private TextField profileToTextField;
+
+    @FXML
+    protected void onProfileBackClick() throws IOException {
+        Main.changeScene("HomePage.fxml");
+    }
+
+    @FXML
+    protected void onUpdateClick(){
+        profileNameTextField.setDisable(false);
+        profileDepartmentTextField.setDisable(false);
+        profileOfficeTextField.setDisable(false);
+        profileTeamTextField.setDisable(false);
+        profileFloorTextField.setDisable(false);
+        profileFromTextField.setDisable(false);
+        profileToTextField.setDisable(false);
+    }
+
+    @FXML
+    protected void onSaveBackClick(){
+        profileNameTextField.setDisable(true);
+        profileDepartmentTextField.setDisable(true);
+        profileOfficeTextField.setDisable(true);
+        profileTeamTextField.setDisable(true);
+        profileFloorTextField.setDisable(true);
+        profileFromTextField.setDisable(true);
+        profileToTextField.setDisable(true);
     }
 
 }
