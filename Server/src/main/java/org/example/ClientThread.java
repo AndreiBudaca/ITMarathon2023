@@ -1,7 +1,6 @@
 package org.example;
 
-import org.example.Model.Person;
-import org.example.Model.PersonDB;
+import org.example.DB.PersonDB;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

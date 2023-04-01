@@ -1,4 +1,4 @@
-package org.example.Model;
+package com.example.biggapp.Model;
 
 import java.io.Serializable;
 

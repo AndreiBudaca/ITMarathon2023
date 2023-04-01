@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.Model.PersonDB;
+import org.example.DB.PersonDB;
 
 import java.io.IOException;
 import java.net.ServerSocket;
