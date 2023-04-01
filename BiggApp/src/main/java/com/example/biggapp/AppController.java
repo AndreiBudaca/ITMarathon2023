@@ -7,10 +7,16 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -127,7 +133,15 @@ public class AppController{
     private TextArea CommentTextArea;
 
     @FXML
-    protected void onAddPersonClick(){
+    protected void onAddPersonClick() throws IOException, InterruptedException {
+        //Create pop-up
+        final Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner((Stage) SendRequestBackButton.getScene().getWindow());
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SendRequestUserListPopUp.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 400, 800);
+        dialog.setScene(scene);
+        dialog.show();
 
     }
 
@@ -146,6 +160,12 @@ public class AppController{
         Scene scene = new Scene(fxmlLoader.load(), 450, 150);
         dialog.setScene(scene);
         dialog.show();
+
+    }
+
+    @FXML
+    protected void updateInviteList(){
+        InvitedPersonsTextArea.setText(invitedUsers);
     }
 
     //send request back pop-up
@@ -164,6 +184,77 @@ public class AppController{
         popup.close();
 
         Main.changeScene("HomePage.fxml");
+    }
+
+    //send request user List pop-up
+    @FXML
+    private AnchorPane UserListVerticalContainer;
+    @FXML
+    private VBox ListContainer;
+    @FXML
+    private Button SendRequestUserListPopUpButton;
+    @FXML
+    private Button refreshListButton;
+
+    @FXML
+    protected void onSendRequestUserListPopUpClick(){
+        List<String> selectedUsers = new ArrayList<>();
+        for(Node child: ListContainer.getChildren()){
+            HBox entry = (HBox) child;
+            String username = ((Label)entry.getChildren().get(0)).getText();
+            Boolean selected = ((CheckBox)entry.getChildren().get(1)).isSelected();
+
+            if(selected)
+                selectedUsers.add(username);
+        }
+
+        updateInvitedUsers(selectedUsers);
+
+        Stage popup = (Stage) ListContainer.getScene().getWindow();
+        popup.close();
+    }
+
+    static String invitedUsers;
+    void updateInvitedUsers(List<String> users){
+        System.out.println("Inside func list: " + users);
+        String s = "";
+        for(String user: users)
+            s += user + ", ";
+
+        invitedUsers = s;
+    }
+
+    @FXML
+    protected void onRefreshListClick() throws FileNotFoundException {
+
+        //TODO: send request to server for userlist
+        List<String> users = List.of("Mircea Vasile", "Costica Ionel", "Vasile Gheorghe");
+
+        ListContainer.getChildren().clear();
+
+        for(String user: users) {
+            HBox newEntry = new HBox();
+            newEntry.setSpacing(50);
+
+            Label name = new Label(); name.setText(user);
+            CheckBox selectUser = new CheckBox();
+            ImageView star = new ImageView();
+            star.setFitHeight(32);
+            star.setFitWidth(32);
+            FileInputStream inputstream = new FileInputStream("/home/danu/Documents/ITMarathon/BiggApp/src/main/resources/Images/FullStar.png");
+            Image image = new Image(inputstream);
+            star.setImage(image);
+
+            newEntry.getChildren().add(name);
+            newEntry.getChildren().add(selectUser);
+
+            //only add image if favorite
+            //newEntry.getChildren().add(star);
+
+            ListContainer.getChildren().add(newEntry);
+
+
+        }
     }
 
 }
