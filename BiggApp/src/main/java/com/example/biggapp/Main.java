@@ -24,15 +24,14 @@ public class Main extends Application {
     }
 
     public static void changeScene(String fxml) throws IOException {
-        Parent pane = FXMLLoader.load(
-                Main.class.getResource(fxml));
+        Parent pane = FXMLLoader.load(Main.class.getResource(fxml));
 
         Scene scene = new Scene( pane );
         primaryStage.setScene(scene);
     }
 
     public static void main(String[] args) {
-       // launch();
+       launch();
         try {
             ClientSocket client = new ClientSocket();
             client.test();

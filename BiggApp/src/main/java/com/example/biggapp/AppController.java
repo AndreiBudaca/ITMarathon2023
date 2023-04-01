@@ -114,8 +114,8 @@ public class AppController{
 
     }
     @FXML
-    protected void onMyProfileClick(){
-
+    protected void onMyProfileClick() throws IOException {
+        Main.changeScene("ProfilePage.fxml");
     }
 
     //send request page
@@ -298,7 +298,7 @@ public class AppController{
 
     @FXML
     protected void onProfileBackClick() throws IOException {
-        Main.changeScene("HomePage.xfml");
+        Main.changeScene("HomePage.fxml");
     }
 
     @FXML
