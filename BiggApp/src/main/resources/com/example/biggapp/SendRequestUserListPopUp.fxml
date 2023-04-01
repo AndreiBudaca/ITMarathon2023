@@ -47,7 +47,7 @@
                </font>
             </Button>
             <Button fx:id="refreshListButton" layoutX="22.0" layoutY="733.0" mnemonicParsing="false" onAction="#onRefreshListClick" prefHeight="39.0" prefWidth="99.0" text="Refresh list" />
-            <VBox fx:id="ListContainer" layoutX="25.0" layoutY="33.0" prefHeight="667.0" prefWidth="351.0" spacing="10.0" />
+            <VBox fx:id="ListContainer" layoutX="25.0" layoutY="33.0" prefHeight="667.0" prefWidth="351.0" />
          </children>
     </AnchorPane>
   </children>

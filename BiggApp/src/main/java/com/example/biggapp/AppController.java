@@ -131,6 +131,8 @@ public class AppController{
     private TextField LocationTextField;
     @FXML
     private TextArea CommentTextArea;
+    @FXML
+    private Label MissingReqFieldLabel;
 
     @FXML
     protected void onAddPersonClick() throws IOException, InterruptedException {
@@ -146,8 +148,23 @@ public class AppController{
     }
 
     @FXML
-    protected void onSendRequestSendClick(){
+    protected void onSendRequestSendClick() throws IOException {
+        //get data and send request
+        List<String> users = List.of(InvitedPersonsTextArea.getText().split(", "));
+        String location = LocationTextField.getText();
+        String comment = CommentTextArea.getText();
 
+        //if all fields are good, send request
+        if(!users.isEmpty() && !location.isBlank()) {
+            //send request
+            //...
+
+
+            Main.changeScene("HomePage.fxml");
+        }
+        else{
+            MissingReqFieldLabel.setVisible(true);
+        }
     }
 
     @FXML
