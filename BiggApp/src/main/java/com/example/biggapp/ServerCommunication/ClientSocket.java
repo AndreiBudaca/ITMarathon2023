@@ -108,7 +108,13 @@ public class ClientSocket {
 
     public void updateUser(int userId, Person newUser){
         String header = "UPDATE USER";
-        String body = JSONParser.writeObject(newUser);
+        String body = userId + " " + JSONParser.writeObject(newUser);
+        sendMessage(header, body);
+    }
+
+    public void updateStatus(int requestId, int personId, int status){
+        String header = "UPDATE STATUS";
+        String body = requestId + " " + personId + " " + status;
         sendMessage(header, body);
     }
 
