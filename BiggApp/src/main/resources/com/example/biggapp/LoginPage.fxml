@@ -40,7 +40,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.biggapp.HelloController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
@@ -59,6 +59,7 @@
                   <Font size="18.0" />
                </font>
             </PasswordField>
+            <Label fx:id="LoginErrorLabel" layoutX="536.0" layoutY="408.0" prefHeight="33.0" prefWidth="209.0" text="Invalid Username or Password Try Again" textAlignment="CENTER" textFill="#830000" visible="false" wrapText="true" />
          </children>
     </AnchorPane>
   </children>
