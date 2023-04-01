@@ -3,12 +3,17 @@ package org.example;
 import org.example.DB.PersonDB;
 import org.example.DB.RequestDB;
 import org.example.Model.Person;
+import org.example.Model.Request;
+import org.example.Model.RequestPerson;
 import org.example.Parser.JSONParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class ClientThread extends Thread {
     private final Socket clientSocket;
@@ -22,9 +27,40 @@ public class ClientThread extends Thread {
 
         personDatabase = new PersonDB();
         requestDatabase = new RequestDB();
+        try {
+            personDatabase.load();
+            requestDatabase.load();
+        }catch (Exception ignore){
+        }
 
-        personDatabase.load();
-        requestDatabase.load();
+        /*
+        personDatabase.addPerson(new Person(
+                "asd",
+                "asd",
+                "asd",
+                "asd",
+                "asd",
+                0,
+                "asd"
+        ));
+
+        List<RequestPerson> test = new ArrayList<RequestPerson>(0);
+        test.add(new RequestPerson(
+                3,
+                0
+        ));
+
+        requestDatabase.addRequest(new Request(
+                1,
+                test,
+                "test",
+                "test"
+
+        ));
+        */
+
+        System.out.println("Socket created!");
+
     }
 
     private void sendData(String dataType, String body){
@@ -90,9 +126,16 @@ public class ClientThread extends Thread {
             out = new PrintWriter(clientSocket.getOutputStream());
             BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
+            System.out.println("Received:");
             //Logic
             String messageHeader = in.readLine();
+            System.out.println("\t" + messageHeader);
             String messageBody = in.readLine();
+            System.out.println("\t" + messageBody);
+
+
+
+
 
             // Get request
             if (messageHeader.split(" ")[0].equals("GET")){
@@ -115,7 +158,8 @@ public class ClientThread extends Thread {
             in.close();
             clientSocket.close();
         }
-        catch (Exception ignored){
+        catch (Exception e){
+            System.out.println(e.getLocalizedMessage());
         }
     }
 
