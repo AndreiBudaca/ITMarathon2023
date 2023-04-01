@@ -95,10 +95,7 @@ public class AppController{
     }
     @FXML
     protected void onSendRequestClick() throws IOException {
-        Stage stage = (Stage) LogoutButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("SendRequestPage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-        stage.setScene(scene);
+        Main.changeScene("SendRequestPage.fxml");
     }
     @FXML
     protected void onLogoutClick() throws IOException {
@@ -106,10 +103,7 @@ public class AppController{
 
         //if successful, redirect to homepage:
         if(true) {
-            Stage stage = (Stage) LogoutButton.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("LoginPage.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-            stage.setScene(scene);
+            Main.changeScene("LoginPage.fxml");
         }
 
     }
@@ -169,9 +163,7 @@ public class AppController{
         Stage popup = (Stage) SendRequestBackCancelButton.getScene().getWindow();
         popup.close();
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("HomePage.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
-
+        Main.changeScene("HomePage.fxml");
     }
 
 }
